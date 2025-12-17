@@ -17,7 +17,7 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "<strong>FREE SHIPPING</strong> on Australia orders over $150 AUD",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",
