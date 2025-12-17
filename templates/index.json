@@ -132,7 +132,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "text": "<h3><strong>Products</strong></h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -240,7 +240,7 @@
                 "show_sale_price_first": true,
                 "show_installments": false,
                 "show_tax_info": false,
-                "type_preset": "h6",
+                "type_preset": "h5",
                 "width": "100%",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
