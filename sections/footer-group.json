@@ -238,9 +238,13 @@
         "group_H6VpwJ",
         "group_jkKmGk"
       ],
+      "custom_css": [
+        ".email-signup__input {border-color: #000000cf;}",
+        ".button-secondary {border-radius: 0px;}"
+      ],
       "name": "t:names.footer",
       "settings": {
-        "section_width": "full-width",
+        "section_width": "page-width",
         "gap": 20,
         "color_scheme": "scheme-2",
         "padding-block-start": 30,
