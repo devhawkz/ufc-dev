@@ -162,7 +162,7 @@
                   "type": "text",
                   "settings": {
                     "text": "<h5><strong>Column One</strong></h5>",
-                    "width": "fit-content",
+                    "width": "100%",
                     "max_width": "narrow",
                     "alignment": "left",
                     "type_preset": "h5",
@@ -232,7 +232,7 @@
                   "type": "text",
                   "settings": {
                     "text": "<h5><strong>Column Two</strong></h5>",
-                    "width": "fit-content",
+                    "width": "100%",
                     "max_width": "narrow",
                     "alignment": "left",
                     "type_preset": "h5",
@@ -302,7 +302,7 @@
                   "type": "text",
                   "settings": {
                     "text": "<h5><strong>Column Three</strong></h5>",
-                    "width": "fit-content",
+                    "width": "100%",
                     "max_width": "narrow",
                     "alignment": "left",
                     "type_preset": "h5",
