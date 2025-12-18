@@ -149,6 +149,32 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "text_gwApE3": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p><strong>Get 10% off</strong></p><p></p><p>Stay updated on sales, new items and more</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "email_signup_qLVPMc": {
               "type": "email-signup",
               "settings": {
@@ -173,10 +199,38 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "text_Hk7gXB": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>By subscribing you agree to with our Privacy Policy and provide consent to receive updates from our company.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
-            "email_signup_qLVPMc"
+            "text_gwApE3",
+            "email_signup_qLVPMc",
+            "text_Hk7gXB"
           ]
         }
       },
