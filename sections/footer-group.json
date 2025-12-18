@@ -162,7 +162,7 @@
                   "type": "text",
                   "settings": {
                     "text": "<h5><strong>Column One</strong></h5>",
-                    "width": "100%",
+                    "width": "fit-content",
                     "max_width": "narrow",
                     "alignment": "left",
                     "type_preset": "h5",
@@ -233,7 +233,7 @@
                   "settings": {
                     "text": "<h5><strong>Column Two</strong></h5>",
                     "width": "fit-content",
-                    "max_width": "normal",
+                    "max_width": "narrow",
                     "alignment": "left",
                     "type_preset": "h5",
                     "font": "var(--font-body--family)",
@@ -303,7 +303,7 @@
                   "settings": {
                     "text": "<h5><strong>Column Three</strong></h5>",
                     "width": "fit-content",
-                    "max_width": "normal",
+                    "max_width": "narrow",
                     "alignment": "left",
                     "type_preset": "h5",
                     "font": "var(--font-body--family)",
