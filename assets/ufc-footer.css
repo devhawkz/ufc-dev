@@ -179,9 +179,9 @@
 }
 .ufc-footer__social-link{
     display:inline-flex;
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
+    width: 24px;
+    height: 24px;
+    border-radius: 10px;
     align-items:center;
     justify-content:center;
     border: 1px solid var(--footer-border);
@@ -225,7 +225,7 @@
 
 /* Social icons SVG */
 .ufc-footer__social-icon{
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     fill: currentColor;
 }

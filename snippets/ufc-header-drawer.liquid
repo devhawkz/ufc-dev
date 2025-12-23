@@ -1,0 +1,90 @@
+{%- doc -%}
+  Renders a header drawer menu for UFC header using menu blocks.
+  
+  @param {array} menu_blocks - Array of menu item blocks
+  @param {object} section - The section object
+{%- enddoc -%}
+
+<header-drawer
+  class="header-drawer header__drawer--mobile"
+>
+  <details
+    id="Details-menu-drawer-container"
+    data-skip-node-update="true"
+    class="menu-drawer-container"
+    ref="details"
+    scroll-lock
+  >
+    <summary
+      class="header__icon header__icon--menu header__icon--summary"
+      aria-label="{{ 'accessibility.menu' | t }}"
+      on:click="/toggle"
+    >
+      <span class="svg-wrapper header-drawer-icon header-drawer-icon--open">
+        {{- 'icon-menu.svg' | inline_asset_content -}}
+      </span>
+      <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </span>
+    </summary>
+    <div
+      data-header-drawer
+      class="menu-drawer motion-reduce"
+    >
+      <button
+        class="button button-unstyled close-button menu-drawer__close-button"
+        type="button"
+        aria-label="{{ 'actions.close' | t }}"
+        on:click="/close"
+      >
+        <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </span>
+      </button>
+      <nav class="menu-drawer__navigation">
+        <ul class="menu-drawer__menu has-submenu" role="list">
+          {%- for block in menu_blocks -%}
+            {% assign href = block.settings.link | default: routes.all_products_collection_url %}
+            <li class="menu-drawer__list-item menu-drawer__list-item--flat" style="--menu-drawer-animation-index: {{ forloop.index }};">
+              <a
+                id="HeaderDrawer-{{ block.id }}"
+                href="{{ href }}"
+                class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset{% if block.settings.is_active %} menu-drawer__menu-item--active{% endif %}"
+                {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}
+                {% if block.settings.is_active %}aria-current="page"{% endif %}
+                {{ block.shopify_attributes }}
+              >
+                <span class="menu-drawer__menu-item-text wrap-text">{{ block.settings.label | escape }}</span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+      <div class="menu-drawer__utility-links menu-drawer__animated-element" style="--menu-drawer-animation-index: {{ menu_blocks.size }};">
+        {% if shop.customer_accounts_enabled %}
+          <a href="{{ routes.account_url }}" class="menu-drawer__account">
+            <span class="svg-wrapper">
+              {{ 'icon-account.svg' | inline_asset_content }}
+            </span>
+            <span>
+              {% if customer %}
+                {{ 'content.account' | t }}
+              {% else %}
+                {{ 'actions.log_in' | t }}
+              {% endif %}
+            </span>
+          </a>
+        {% endif %}
+        <!-- Search in drawer -->
+        <div class="menu-drawer__search">
+          {% render 'search', style: 'modal', class: '' %}
+        </div>
+      </div>
+    </div>
+    <div
+      class="menu-drawer__backdrop"
+      on:click="header-drawer/close"
+    ></div>
+  </details>
+</header-drawer>
+
