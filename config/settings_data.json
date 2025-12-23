@@ -78,6 +78,76 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
+    "sections": {
+      "ufc-footer": {
+        "type": "ufc-footer",
+        "blocks": {
+          "brand_GdaqJe": {
+            "type": "brand",
+            "settings": {
+              "logo": "shopify://shop_images/0-629409732728.3229_1.svg",
+              "brand_subtext": ""
+            }
+          },
+          "link_column_cbhHwd": {
+            "type": "link_column",
+            "settings": {
+              "heading": "Column One",
+              "menu": "footer-test-menu"
+            }
+          },
+          "link_column_Ydc7YW": {
+            "type": "link_column",
+            "settings": {
+              "heading": "Column One",
+              "menu": "footer-test-menu"
+            }
+          },
+          "link_column_xbRakb": {
+            "type": "link_column",
+            "settings": {
+              "heading": "Column One",
+              "menu": "footer-test-menu"
+            }
+          },
+          "newsletter_6wfzj6": {
+            "type": "newsletter",
+            "settings": {
+              "enable_newsletter": true,
+              "newsletter_heading": "Get 10% off",
+              "newsletter_subtext": "Stay updated on sales, new items and more",
+              "email_label": "Email",
+              "email_placeholder": "Enter your email",
+              "button_label": "Prijavi se",
+              "success_message": "Hvala! Uspešno ste prijavljeni.",
+              "privacy_text": "<p>By subscribing you agree to our <a href=\"#\">Privacy Policy</a> and provide consent to receive updates from our company.</p>"
+            }
+          },
+          "bottom_bar_GneG9C": {
+            "type": "bottom_bar",
+            "settings": {
+              "copyright_text": "© 2025 Company name. All rights reserved.",
+              "bottom_menu": "",
+              "show_social": true,
+              "facebook_url": "#",
+              "instagram_url": "#",
+              "twitter_url": "#",
+              "linkedin_url": "#",
+              "youtube_url": "#"
+            }
+          }
+        },
+        "block_order": [
+          "brand_GdaqJe",
+          "link_column_cbhHwd",
+          "link_column_Ydc7YW",
+          "link_column_xbRakb",
+          "newsletter_6wfzj6",
+          "bottom_bar_GneG9C"
+        ],
+        "settings": {}
+      }
+    },
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
