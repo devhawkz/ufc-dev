@@ -1,0 +1,407 @@
+{% comment %}
+  Section: UFC Footer (80rem centered)
+  - 3 columns with dynamic menus
+  - Newsletter signup (Shopify customer form)
+  - Bottom bar: copyright text, bottom menu, social icons
+{% endcomment %}
+
+{{ 'ufc-footer.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="ufc-footer">
+  <div class="ufc-footer__inner">
+    <div class="ufc-footer__top">
+      {%- liquid
+        assign brand_block = section.blocks | where: 'type', 'brand' | first
+        assign newsletter_block = section.blocks | where: 'type', 'newsletter' | first
+        assign link_columns = section.blocks | where: 'type', 'link_column'
+      -%}
+
+      <!-- Brand block -->
+      {% if brand_block %}
+        <div class="ufc-footer__brand" {{ brand_block.shopify_attributes }}>
+          {% if brand_block.settings.logo != blank %}
+            <a class="ufc-footer__brand-link" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+              {{ brand_block.settings.logo | image_url: width: 320 | image_tag:
+                widths: '160, 220, 320',
+                sizes: '(max-width: 749px) 160px, 220px',
+                alt: shop.name
+              }}
+            </a>
+          {% else %}
+            <a class="ufc-footer__brand-text" href="{{ routes.root_url }}">{{ shop.name }}</a>
+          {% endif %}
+
+          {% if brand_block.settings.brand_subtext != blank %}
+            <div class="ufc-footer__brand-subtext">{{ brand_block.settings.brand_subtext }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- Link columns -->
+      {% if link_columns.size > 0 %}
+        <div class="ufc-footer__cols">
+          {% for block in link_columns %}
+            <div class="ufc-footer__col" {{ block.shopify_attributes }}>
+              {% if block.settings.heading != blank %}
+                <h3 class="ufc-footer__col-title">{{ block.settings.heading }}</h3>
+              {% endif %}
+
+              {% if block.settings.menu != blank %}
+                <ul class="ufc-footer__links" role="list">
+                  {% for link in block.settings.menu.links %}
+                    <li class="ufc-footer__link-item">
+                      <a class="ufc-footer__link" href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                {% if request.design_mode %}
+                  <p class="ufc-footer__empty">Izaberi meni u podešavanjima bloka.</p>
+                {% endif %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- Newsletter block -->
+      {% if newsletter_block %}
+        <div class="ufc-footer__newsletter" {{ newsletter_block.shopify_attributes }}>
+          {% if newsletter_block.settings.newsletter_heading != blank %}
+            <h3 class="ufc-footer__newsletter-title">{{ newsletter_block.settings.newsletter_heading }}</h3>
+          {% endif %}
+
+          {% if newsletter_block.settings.newsletter_subtext != blank %}
+            <p class="ufc-footer__newsletter-subtext">{{ newsletter_block.settings.newsletter_subtext }}</p>
+          {% endif %}
+
+          {% if newsletter_block.settings.enable_newsletter %}
+            {%- liquid
+              assign form_id = 'UfcFooterForm-' | append: newsletter_block.id
+            -%}
+            {% form 'customer', class: 'ufc-footer__newsletter-form', id: form_id %}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+
+              <div class="ufc-footer__newsletter-row">
+                <label class="visually-hidden" for="UfcFooterEmail-{{ newsletter_block.id }}">
+                  {{ newsletter_block.settings.email_label | default: 'Email' }}
+                </label>
+
+                <input
+                  id="UfcFooterEmail-{{ newsletter_block.id }}"
+                  class="ufc-footer__input"
+                  type="email"
+                  name="contact[email]"
+                  value="{% if customer %}{{ customer.email }}{% endif %}"
+                  placeholder="{{ newsletter_block.settings.email_placeholder }}"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  autocomplete="email"
+                  required
+                  aria-required="true"
+                  {% if form.errors %}
+                    aria-invalid="true"
+                    aria-describedby="UfcFooterError-{{ newsletter_block.id }}"
+                    autofocus
+                  {% elsif form.posted_successfully? %}
+                    aria-describedby="UfcFooterSuccess-{{ newsletter_block.id }}"
+                  {% endif %}
+                >
+
+                <button class="ufc-footer__button" type="submit" aria-label="{{ newsletter_block.settings.button_label }}">
+                  {{ newsletter_block.settings.button_label }}
+                </button>
+              </div>
+
+              {% if form.posted_successfully? %}
+                <p id="UfcFooterSuccess-{{ newsletter_block.id }}" class="ufc-footer__form-msg is-success" role="status" tabindex="-1">
+                  {{ newsletter_block.settings.success_message }}
+                </p>
+              {% elsif form.errors %}
+                <p id="UfcFooterError-{{ newsletter_block.id }}" class="ufc-footer__form-msg is-error" role="alert" tabindex="-1">
+                  {{ form.errors | default_errors }}
+                </p>
+              {% endif %}
+            {% endform %}
+
+            {% if newsletter_block.settings.privacy_text != blank %}
+              <div class="ufc-footer__privacy">
+                {{ newsletter_block.settings.privacy_text }}
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Bottom bar block -->
+  {% assign bottom_bar_block = section.blocks | where: 'type', 'bottom_bar' | first %}
+  {% if bottom_bar_block %}
+    <div class="ufc-footer__bottom" {{ bottom_bar_block.shopify_attributes }}>
+      <div class="ufc-footer__inner ufc-footer__bottom-inner">
+        <div class="ufc-footer__copyright">
+          {% if bottom_bar_block.settings.copyright_text != blank %}
+            {{ bottom_bar_block.settings.copyright_text }}
+          {% else %}
+            © {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+          {% endif %}
+        </div>
+
+        <div class="ufc-footer__bottom-links">
+          {% if bottom_bar_block.settings.bottom_menu != blank %}
+            <ul class="ufc-footer__bottom-list" role="list">
+              {% for link in bottom_bar_block.settings.bottom_menu.links %}
+                <li class="ufc-footer__bottom-item">
+                  <a class="ufc-footer__bottom-link" href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        {% if bottom_bar_block.settings.show_social %}
+          <div class="ufc-footer__social">
+            {% if bottom_bar_block.settings.facebook_url != blank %}
+              <a class="ufc-footer__social-link" href="{{ bottom_bar_block.settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <svg class="ufc-footer__social-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  {%- render 'icon', icon: 'facebook' -%}
+                </svg>
+              </a>
+            {% endif %}
+            {% if bottom_bar_block.settings.instagram_url != blank %}
+              <a class="ufc-footer__social-link" href="{{ bottom_bar_block.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg class="ufc-footer__social-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  {%- render 'icon', icon: 'instagram' -%}
+                </svg>
+              </a>
+            {% endif %}
+            {% if bottom_bar_block.settings.twitter_url != blank %}
+              <a class="ufc-footer__social-link" href="{{ bottom_bar_block.settings.twitter_url }}" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                <svg class="ufc-footer__social-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  {%- render 'icon', icon: 'twitter' -%}
+                </svg>
+              </a>
+            {% endif %}
+            {% if bottom_bar_block.settings.linkedin_url != blank %}
+              <a class="ufc-footer__social-link" href="{{ bottom_bar_block.settings.linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg class="ufc-footer__social-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  {%- render 'icon', icon: 'linkedin' -%}
+                </svg>
+              </a>
+            {% endif %}
+            {% if bottom_bar_block.settings.youtube_url != blank %}
+              <a class="ufc-footer__social-link" href="{{ bottom_bar_block.settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <svg class="ufc-footer__social-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  {%- render 'icon', icon: 'youtube' -%}
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "UFC Footer",
+  "tag": "section",
+  "class": "section-ufc-footer",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "brand_subtext",
+          "label": "Brand subtext",
+          "default": "A Fanatics Experience"
+        }
+      ]
+    },
+    {
+      "type": "link_column",
+      "name": "Link column",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Column heading",
+          "default": "Column One"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enable_newsletter",
+          "label": "Enable newsletter",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "newsletter_heading",
+          "label": "Newsletter heading",
+          "default": "Get 10% off"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_subtext",
+          "label": "Newsletter subtext",
+          "default": "Stay updated on sales, new items and more"
+        },
+        {
+          "type": "text",
+          "id": "email_label",
+          "label": "Email label (a11y)",
+          "default": "Email"
+        },
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email placeholder",
+          "default": "Enter your email"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Prijavi se"
+        },
+        {
+          "type": "text",
+          "id": "success_message",
+          "label": "Success message",
+          "default": "Hvala! Uspešno ste prijavljeni."
+        },
+        {
+          "type": "richtext",
+          "id": "privacy_text",
+          "label": "Privacy text",
+          "default": "<p>By subscribing you agree to our <a href=\"#\">Privacy Policy</a> and provide consent to receive updates from our company.</p>"
+        }
+      ]
+    },
+    {
+      "type": "bottom_bar",
+      "name": "Bottom bar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "copyright_text",
+          "label": "Copyright text",
+          "default": "© 2025 Company name. All rights reserved."
+        },
+        {
+          "type": "link_list",
+          "id": "bottom_menu",
+          "label": "Bottom menu"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social",
+          "label": "Show social icons",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Social media links"
+        },
+        {
+          "type": "url",
+          "id": "facebook_url",
+          "label": "Facebook URL"
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram URL"
+        },
+        {
+          "type": "url",
+          "id": "twitter_url",
+          "label": "X (Twitter) URL"
+        },
+        {
+          "type": "url",
+          "id": "linkedin_url",
+          "label": "LinkedIn URL"
+        },
+        {
+          "type": "url",
+          "id": "youtube_url",
+          "label": "YouTube URL"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "UFC Footer",
+      "blocks": [
+        {
+          "type": "brand",
+          "settings": {
+            "brand_subtext": "A Fanatics Experience"
+          }
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "heading": "Column One"
+          }
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "heading": "Column Two"
+          }
+        },
+        {
+          "type": "link_column",
+          "settings": {
+            "heading": "Column Three"
+          }
+        },
+        {
+          "type": "newsletter",
+          "settings": {
+            "enable_newsletter": true,
+            "newsletter_heading": "Get 10% off",
+            "newsletter_subtext": "Stay updated on sales, new items and more"
+          }
+        },
+        {
+          "type": "bottom_bar",
+          "settings": {
+            "show_social": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
