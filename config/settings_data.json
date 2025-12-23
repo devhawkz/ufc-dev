@@ -53,7 +53,8 @@
     "badge_sold_out_color_scheme": "scheme-3",
     "badge_text_transform": "none",
     "primary_button_border_width": 0,
-    "button_border_radius_primary": 14,
+    "button_border_radius_primary": 0,
+    "button_text_case_primary": "uppercase",
     "secondary_button_border_width": 1,
     "button_border_radius_secondary": 0,
     "cart_type": "drawer",
@@ -149,6 +150,89 @@
       },
       "ufc-header": {
         "type": "ufc-header",
+        "blocks": {
+          "announcement_pBhBXq": {
+            "type": "announcement",
+            "settings": {
+              "bold_text": "FREE SHIPPING",
+              "text": "on Australia orders over $150 AUD",
+              "link": ""
+            }
+          },
+          "menu_item_fCLM9U": {
+            "type": "menu_item",
+            "settings": {
+              "label": "MAJICE",
+              "link": "",
+              "open_in_new_tab": false,
+              "is_active": false
+            }
+          },
+          "menu_item_6XNcnx": {
+            "type": "menu_item",
+            "settings": {
+              "label": "Duksevi",
+              "link": "",
+              "open_in_new_tab": false,
+              "is_active": false
+            }
+          },
+          "menu_item_JVwMTJ": {
+            "type": "menu_item",
+            "settings": {
+              "label": "Sorcevi",
+              "link": "",
+              "open_in_new_tab": false,
+              "is_active": false
+            }
+          },
+          "menu_item_W9D8rz": {
+            "type": "menu_item",
+            "settings": {
+              "label": "Trenerice",
+              "link": "",
+              "open_in_new_tab": false,
+              "is_active": false
+            }
+          },
+          "menu_item_B8V9TG": {
+            "type": "menu_item",
+            "settings": {
+              "label": "Kompleti",
+              "link": "",
+              "open_in_new_tab": false,
+              "is_active": false
+            }
+          },
+          "menu_item_kkbVH4": {
+            "type": "menu_item",
+            "settings": {
+              "label": "Oprema",
+              "link": "",
+              "open_in_new_tab": false,
+              "is_active": false
+            }
+          },
+          "menu_item_FCtK4P": {
+            "type": "menu_item",
+            "settings": {
+              "label": "Ostalo",
+              "link": "",
+              "open_in_new_tab": false,
+              "is_active": false
+            }
+          }
+        },
+        "block_order": [
+          "announcement_pBhBXq",
+          "menu_item_fCLM9U",
+          "menu_item_6XNcnx",
+          "menu_item_JVwMTJ",
+          "menu_item_W9D8rz",
+          "menu_item_B8V9TG",
+          "menu_item_kkbVH4",
+          "menu_item_FCtK4P"
+        ],
         "settings": {
           "max_width_rem": 80,
           "ann_aria_label": "Store announcement",
@@ -379,8 +463,8 @@
           "primary_hover": "#ffffffb0",
           "border": "#e6e6e6",
           "shadow": "#000000",
-          "primary_button_background": "#ffffff",
-          "primary_button_text": "#000000",
+          "primary_button_background": "#000000",
+          "primary_button_text": "#ffffff",
           "primary_button_border": "#ffffff",
           "primary_button_hover_background": "#000000",
           "primary_button_hover_text": "#ffffff",

@@ -15,6 +15,7 @@
         "text_YLPk4p": {
           "type": "text",
           "name": "t:names.heading",
+          "disabled": true,
           "settings": {
             "text": "<p>This is test</p>",
             "width": "fit-content",
@@ -41,6 +42,7 @@
         "button_H9gpTf": {
           "type": "button",
           "name": "t:names.button",
+          "disabled": true,
           "settings": {
             "label": "Shop all",
             "link": "shopify://collections/all",
