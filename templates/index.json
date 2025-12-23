@@ -255,51 +255,12 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "buy_buttons_TnNnR3": {
-              "type": "buy-buttons",
-              "name": "t:names.product_buy_buttons",
-              "settings": {
-                "stacking": false,
-                "show_pickup_availability": true,
-                "gift_card_form": true,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "disabled": true,
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
-                  "static": true,
-                  "settings": {
-                    "style_class": "button-secondary"
-                  },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "disabled": true,
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                }
-              },
-              "block_order": []
             }
           },
           "block_order": [
             "product_card_gallery_677WP3",
             "product_title_YXxMTj",
-            "price_JQzVV4",
-            "buy_buttons_TnNnR3"
+            "price_JQzVV4"
           ]
         }
       },
@@ -734,7 +695,7 @@
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
+        "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 16,
         "section_width": "narrow-page-width",
