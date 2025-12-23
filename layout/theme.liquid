@@ -57,8 +57,9 @@
     >
       {{ content_for_layout }}
     </main>
-
-    {% sections 'footer-group' %}
+    
+    {% section 'ufc-footer' %}
+    {% comment %} {% sections 'footer-group' %} {% endcomment %}
 
     {% render 'search-modal' %}
 
