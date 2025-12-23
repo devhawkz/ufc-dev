@@ -146,6 +146,31 @@
           "bottom_bar_XhEfaL"
         ],
         "settings": {}
+      },
+      "ufc-header": {
+        "type": "ufc-header",
+        "settings": {
+          "max_width_rem": 80,
+          "ann_aria_label": "Store announcement",
+          "ann_bg": "#111111",
+          "ann_text": "#ffffff",
+          "logo": "shopify://shop_images/0-629409732728.3229_1.svg",
+          "logo_subtext": "",
+          "search_placeholder": "What are you looking for?",
+          "search_aria_label": "Search products",
+          "search_button_aria": "Search",
+          "top_bg": "#ffffff",
+          "top_text": "#111111",
+          "top_muted": "#666666",
+          "top_border": "#cfcfcf",
+          "menu_aria_label": "Primary navigation",
+          "menu_height_px": 56,
+          "menu_bg": "#d40000",
+          "menu_text": "#ffffff",
+          "menu_text_hover": "#ffffff",
+          "menu_show_left_fade": true,
+          "menu_fade_width_px": 90
+        }
       }
     },
     "content_for_index": [],
