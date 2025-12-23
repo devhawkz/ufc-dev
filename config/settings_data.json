@@ -127,7 +127,7 @@
             "type": "bottom_bar",
             "settings": {
               "copyright_text": "© 2025 Company name. All rights reserved.",
-              "bottom_menu": "",
+              "bottom_menu": "privacy-test-menu",
               "show_social": true,
               "facebook_url": "#",
               "instagram_url": "#",
