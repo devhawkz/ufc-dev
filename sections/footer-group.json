@@ -466,8 +466,7 @@
         "group_jkKmGk"
       ],
       "custom_css": [
-        ".email-signup__input {border-color: #000000cf;}",
-        ".button-secondary {border-radius: 0px;}"
+        ".email-signup__input {border-color: #000000cf;}"
       ],
       "name": "t:names.footer",
       "settings": {
