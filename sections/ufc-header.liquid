@@ -1,0 +1,411 @@
+{% comment %}
+  Section: UFC Header (80rem centered)
+  Parts:
+  1) Announcement bar (blocks)
+  2) Top header: logo + search + account/cart
+  3) Menu bar (blocks)
+{% endcomment %}
+
+{{ 'ufc-header.css' | asset_url | stylesheet_tag }}
+
+<script
+  type="module"
+  src="{{ 'cart-icon.js' | asset_url }}"
+  fetchpriority="low"
+></script>
+
+{% if settings.cart_type == 'drawer' and template.name != 'cart' %}
+  <script
+    src="{{ 'cart-drawer.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
+
+<script
+  src="{{ 'header-drawer.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+<script
+  src="{{ 'dialog.js' | asset_url }}"
+  type="module"
+></script>
+
+<header
+    class="ufc-header"
+    style="
+      --ufc-max-width: {{ section.settings.max_width_rem }}rem;
+  
+      --ann-bg: {{ section.settings.ann_bg }};
+      --ann-text: {{ section.settings.ann_text }};
+  
+      --top-bg: {{ section.settings.top_bg }};
+      --top-text: {{ section.settings.top_text }};
+      --top-muted: {{ section.settings.top_muted }};
+      --top-border: {{ section.settings.top_border }};
+  
+      --menu-bg: {{ section.settings.menu_bg }};
+      --menu-text: {{ section.settings.menu_text }};
+      --menu-text-hover: {{ section.settings.menu_text_hover }};
+      --menu-height: {{ section.settings.menu_height_px }}px;
+  
+      --fade-width: {{ section.settings.menu_fade_width_px }}px;
+    "
+  >
+    {% liquid
+      assign ann_blocks = section.blocks | where: "type", "announcement"
+      assign menu_blocks = section.blocks | where: "type", "menu_item"
+    %}
+  
+    {%- if ann_blocks.size > 0 -%}
+      <div class="ufc-header__announcement" role="region" aria-label="{{ section.settings.ann_aria_label | escape }}">
+        <div class="ufc-header__inner ufc-header__announcement-inner">
+          {%- for block in ann_blocks -%}
+            <div class="ufc-ann" {{ block.shopify_attributes }}>
+              {% if block.settings.link != blank %}
+                <a class="ufc-ann__link" href="{{ block.settings.link }}">
+                  <span class="ufc-ann__text">
+                    {% if block.settings.bold_text != blank %}
+                      <strong>{{ block.settings.bold_text | escape }}</strong>
+                    {% endif %}
+                    {% if block.settings.text != blank %}
+                      <span>{{ block.settings.text }}</span>
+                    {% endif %}
+                  </span>
+                </a>
+              {% else %}
+                <div class="ufc-ann__text">
+                  {% if block.settings.bold_text != blank %}
+                    <strong>{{ block.settings.bold_text | escape }}</strong>
+                  {% endif %}
+                  {% if block.settings.text != blank %}
+                    <span>{{ block.settings.text }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  
+    <!-- Top header: logo + search + actions -->
+    <div class="ufc-header__top">
+      <div class="ufc-header__inner ufc-header__top-inner">
+  
+        <!-- Mobile hamburger menu (left side on mobile) -->
+        {% if menu_blocks.size > 0 %}
+          <div class="ufc-top__mobile-menu">
+            {% render 'ufc-header-drawer', menu_blocks: menu_blocks, section: section %}
+          </div>
+        {% endif %}
+  
+        <!-- Logo -->
+        <div class="ufc-top__logo">
+          <a class="ufc-top__logo-link" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+            {% if section.settings.logo != blank %}
+              {{ section.settings.logo | image_url: width: 360 | image_tag:
+                widths: '180, 240, 300, 360',
+                sizes: '(max-width: 749px) 160px, 220px',
+                alt: shop.name
+              }}
+            {% else %}
+              <span class="ufc-top__logo-text">{{ shop.name }}</span>
+            {% endif %}
+          </a>
+  
+          {% if section.settings.logo_subtext != blank %}
+            <div class="ufc-top__logo-subtext">{{ section.settings.logo_subtext }}</div>
+          {% endif %}
+        </div>
+  
+        <!-- Search -->
+        <div class="ufc-top__search">
+          {% render 'search', style: 'modal', class: '' %}
+        </div>
+  
+        <!-- Account / Cart -->
+        <div class="ufc-top__actions">
+          <!-- Account - hidden on mobile, shown in drawer -->
+          <div class="ufc-top__account">
+            {% if shop.customer_accounts_enabled %}
+              {% render 'account-popover' %}
+              {% render 'account-drawer' %}
+            {% else %}
+              <a class="ufc-action header-actions__action" href="{{ routes.account_url }}" aria-label="{{ 'accessibility.account' | t }}">
+                <span class="ufc-icon-wrapper" aria-hidden="true">
+                  {{ 'icon-account.svg' | inline_asset_content }}
+                </span>
+              </a>
+            {% endif %}
+          </div>
+  
+          <!-- Cart -->
+          {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
+            {% render 'cart-drawer' %}
+          {% else %}
+            <a class="ufc-action header-actions__action action__cart" href="{{ routes.cart_url }}" aria-label="{{ 'accessibility.cart' | t }}" aria-describedby="cart-bubble-text">
+              {% render 'cart-icon-component' %}
+            </a>
+          {% endif %}
+        </div>
+  
+      </div>
+    </div>
+  
+    {%- if menu_blocks.size > 0 -%}
+      <!-- Menu bar -->
+      <nav class="ufc-header__menu" aria-label="{{ section.settings.menu_aria_label | escape }}">
+        {% if section.settings.menu_show_left_fade %}
+          <div class="ufc-header__menu-fade" aria-hidden="true"></div>
+        {% endif %}
+  
+        <div class="ufc-header__inner ufc-header__menu-inner">
+          <ul class="ufc-menu" role="list">
+            {%- for block in menu_blocks -%}
+              <li class="ufc-menu__item" {{ block.shopify_attributes }}>
+                {% assign href = block.settings.link | default: routes.all_products_collection_url %}
+                <a
+                  class="ufc-menu__link"
+                  href="{{ href }}"
+                  {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}
+                  {% if block.settings.is_active %}aria-current="page"{% endif %}
+                >
+                  {{ block.settings.label | escape }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </nav>
+    {%- endif -%}
+  </header>
+  
+  <style>
+   
+  </style>
+  
+  {% schema %}
+  {
+    "name": "UFC Header",
+    "tag": "section",
+    "class": "section-ufc-header",
+    "settings": [
+      {
+        "type": "range",
+        "id": "max_width_rem",
+        "label": "Max width (rem)",
+        "min": 50,
+        "max": 110,
+        "step": 1,
+        "default": 80
+      },
+  
+      {
+        "type": "header",
+        "content": "Announcement bar"
+      },
+      {
+        "type": "text",
+        "id": "ann_aria_label",
+        "label": "ARIA label",
+        "default": "Store announcement"
+      },
+      {
+        "type": "color",
+        "id": "ann_bg",
+        "label": "Background",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "ann_text",
+        "label": "Text",
+        "default": "#ffffff"
+      },
+  
+      {
+        "type": "header",
+        "content": "Top header"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "logo_subtext",
+        "label": "Logo subtext",
+        "default": "A Fanatics Experience"
+      },
+      {
+        "type": "text",
+        "id": "search_placeholder",
+        "label": "Search placeholder",
+        "default": "What are you looking for?"
+      },
+      {
+        "type": "text",
+        "id": "search_aria_label",
+        "label": "Search input aria-label",
+        "default": "Search products"
+      },
+      {
+        "type": "text",
+        "id": "search_button_aria",
+        "label": "Search button aria-label",
+        "default": "Search"
+      },
+      {
+        "type": "color",
+        "id": "top_bg",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "top_text",
+        "label": "Text",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "top_muted",
+        "label": "Muted text",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "top_border",
+        "label": "Border color",
+        "default": "#cfcfcf"
+      },
+  
+      {
+        "type": "header",
+        "content": "Menu bar"
+      },
+      {
+        "type": "text",
+        "id": "menu_aria_label",
+        "label": "ARIA label",
+        "default": "Primary navigation"
+      },
+      {
+        "type": "range",
+        "id": "menu_height_px",
+        "label": "Menu height (px)",
+        "min": 40,
+        "max": 90,
+        "step": 1,
+        "default": 56
+      },
+      {
+        "type": "color",
+        "id": "menu_bg",
+        "label": "Background",
+        "default": "#d40000"
+      },
+      {
+        "type": "color",
+        "id": "menu_text",
+        "label": "Text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "menu_text_hover",
+        "label": "Hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "checkbox",
+        "id": "menu_show_left_fade",
+        "label": "Show left fade (black gradient)",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "menu_fade_width_px",
+        "label": "Fade width (px)",
+        "min": 40,
+        "max": 180,
+        "step": 5,
+        "default": 90
+      }
+    ],
+    "blocks": [
+      {
+        "type": "announcement",
+        "name": "Announcement",
+        "settings": [
+          {
+            "type": "text",
+            "id": "bold_text",
+            "label": "Bold text",
+            "default": "FREE SHIPPING"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "on Australia orders over $150 AUD"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link (optional)"
+          }
+        ]
+      },
+      {
+        "type": "menu_item",
+        "name": "Menu item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Label",
+            "default": "MAJICE"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          },
+          {
+            "type": "checkbox",
+            "id": "open_in_new_tab",
+            "label": "Open in new tab",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "is_active",
+            "label": "Mark as active (underline)",
+            "default": false
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "UFC Header",
+        "blocks": [
+          { "type": "announcement", "settings": { "bold_text": "FREE SHIPPING", "text": "on Australia orders over $150 AUD" } },
+          { "type": "menu_item", "settings": { "label": "MAJICE" } },
+          { "type": "menu_item", "settings": { "label": "DUKSEVI" } },
+          { "type": "menu_item", "settings": { "label": "ŠORCEVI" } },
+          { "type": "menu_item", "settings": { "label": "TRENERICE" } },
+          { "type": "menu_item", "settings": { "label": "KOMPLETI" } },
+          { "type": "menu_item", "settings": { "label": "OPREMA" } },
+          { "type": "menu_item", "settings": { "label": "OSTALO" } }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+  

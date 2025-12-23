@@ -376,6 +376,14 @@
 
   .header-section {
     position: relative;
+    /* Set header section to use narrow page width */
+    --page-content-width: var(--narrow-page-width);
+    --page-width: calc(var(--page-content-width) + (var(--page-margin) * 2));
+  }
+
+  /* Remove background from section elements in header, keep it only on header__row */
+  .header-section .section {
+    /* background-color: transparent; */
   }
 
   #header-group:has(#header-component[sticky]) {
@@ -411,6 +419,7 @@
     /* will default to bg from its color scheme unless --header-bg-color is transparent */
     background-color: var(--header-bg-color, var(--color-background));
   }
+  
 
   .header__row--top:not(.divider--page-width),
   .header__row--top.divider--page-width .header__columns,
