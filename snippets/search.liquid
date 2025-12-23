@@ -10,20 +10,57 @@
 
 {% unless style == 'none' %}
   <search-button class="search-action{% if class != blank %} {{ class | strip }}{% endif %}">
-    <button
+    <div
       on:click="#search-modal/showDialog"
-      class="button button-unstyled search-modal__button header-actions__action"
+      class="search-modal__button header-actions__action"
+      role="button"
+      tabindex="0"
       aria-label="{{ 'content.search_input_label' | t }}"
       aria-haspopup="dialog"
     >
+      <label
+        for="header-search-input"
+        class="visually-hidden"
+      >
+        {{ 'content.search_input_label' | t }}
+      </label>
+      <input
+        id="header-search-input"
+        type="text"
+        class="search-action__input"
+        placeholder="{{ 'content.search_input_placeholder' | t }}"
+        readonly
+        aria-label="{{ 'content.search_input_label' | t }}"
+        tabindex="-1"
+      >
       <span
         aria-hidden="true"
-        class="svg-wrapper"
+        class="svg-wrapper search-action__icon"
       >
         {{ 'icon-search.svg' | inline_asset_content }}
       </span>
-    </button>
+    </div>
   </search-button>
+
+  <script>
+    (function() {
+      const searchButton = document.querySelector('search-button .search-modal__button');
+      if (searchButton) {
+        searchButton.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            const searchModal = document.getElementById('search-modal');
+            if (searchModal && searchModal.showDialog) {
+              searchModal.showDialog();
+            } else {
+              const event = new CustomEvent('click');
+              searchButton.dispatchEvent(event);
+            }
+          }
+        });
+      }
+    })();
+  </script>
 {% endunless %}
 
 {% stylesheet %}
@@ -32,6 +69,67 @@
     --search-border-width: var(--style-border-width-inputs);
 
     display: flex;
+    width: 100%;
+  }
+
+  .search-modal__button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .search-modal__button:focus-visible {
+    outline: var(--focus-outline-width) solid currentcolor;
+    outline-offset: var(--focus-outline-offset);
+    border-radius: var(--style-border-radius-inputs);
+  }
+
+  .search-action__input {
+    width: 100%;
+    padding-block: var(--padding-sm);
+    padding-inline-start: var(--padding-md);
+    padding-inline-end: calc(var(--icon-size-md) + var(--padding-md));
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    background-color: var(--color-input-background);
+    color: var(--color-input-text);
+    font-size: var(--font-size--md);
+    outline: none;
+    cursor: pointer;
+    transition: border-color var(--animation-speed) var(--animation-easing);
+  }
+
+  .search-action__input::placeholder {
+    color: rgb(var(--color-input-text-rgb) / var(--opacity-subdued-text));
+  }
+
+  .search-action__input:hover {
+    border-color: var(--color-input-border-hover);
+  }
+
+  .search-action__input:focus {
+    border-color: var(--color-input-border-focus);
+  }
+
+  .search-action__icon {
+    position: absolute;
+    right: var(--padding-md);
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: var(--color-input-text);
+    opacity: var(--opacity-subdued-text);
+  }
+
+  .search-action__icon svg {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
   }
 
   .header__column--center .search-action {
