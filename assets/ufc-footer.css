@@ -252,7 +252,7 @@
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: auto 1fr auto;
     gap: 1.25rem;
     align-items: center;
     }
