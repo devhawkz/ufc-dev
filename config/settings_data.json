@@ -9,10 +9,10 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/0-629409732728.3229_1.png",
+    "logo": "shopify://shop_images/0-629409732728.3229_1.svg",
     "logo_height": 55,
     "logo_height_mobile": 28,
-    "favicon": "shopify://shop_images/favicon-32x32.png",
+    "favicon": "shopify://shop_images/0-629409732728.3229_1.svg",
     "type_body_font": "roboto_n4",
     "type_subheading_font": "roboto_n4",
     "type_heading_font": "roboto_n4",
@@ -82,35 +82,35 @@
       "ufc-footer": {
         "type": "ufc-footer",
         "blocks": {
-          "brand_GdaqJe": {
+          "brand_trPj9L": {
             "type": "brand",
             "settings": {
               "logo": "shopify://shop_images/0-629409732728.3229_1.svg",
               "brand_subtext": ""
             }
           },
-          "link_column_cbhHwd": {
+          "link_column_rBx7RR": {
             "type": "link_column",
             "settings": {
               "heading": "Column One",
               "menu": "footer-test-menu"
             }
           },
-          "link_column_Ydc7YW": {
+          "link_column_qkfYLq": {
             "type": "link_column",
             "settings": {
               "heading": "Column One",
               "menu": "footer-test-menu"
             }
           },
-          "link_column_xbRakb": {
+          "link_column_PKaLDx": {
             "type": "link_column",
             "settings": {
               "heading": "Column One",
               "menu": "footer-test-menu"
             }
           },
-          "newsletter_6wfzj6": {
+          "newsletter_LTqEc6": {
             "type": "newsletter",
             "settings": {
               "enable_newsletter": true,
@@ -123,7 +123,7 @@
               "privacy_text": "<p>By subscribing you agree to our <a href=\"#\">Privacy Policy</a> and provide consent to receive updates from our company.</p>"
             }
           },
-          "bottom_bar_GneG9C": {
+          "bottom_bar_XhEfaL": {
             "type": "bottom_bar",
             "settings": {
               "copyright_text": "© 2025 Company name. All rights reserved.",
@@ -138,12 +138,12 @@
           }
         },
         "block_order": [
-          "brand_GdaqJe",
-          "link_column_cbhHwd",
-          "link_column_Ydc7YW",
-          "link_column_xbRakb",
-          "newsletter_6wfzj6",
-          "bottom_bar_GneG9C"
+          "brand_trPj9L",
+          "link_column_rBx7RR",
+          "link_column_qkfYLq",
+          "link_column_PKaLDx",
+          "newsletter_LTqEc6",
+          "bottom_bar_XhEfaL"
         ],
         "settings": {}
       }
